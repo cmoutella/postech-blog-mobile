@@ -1,7 +1,11 @@
 import { Routes } from "@/routes";
-
+import { NativeBaseProvider } from "native-base";
 import "../constants/global.css";
 
 export default function RootLayout() {
-  return <Routes />;
+  return (
+    <NativeBaseProvider>
+      <Routes />
+    </NativeBaseProvider>
+  );
 }

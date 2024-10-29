@@ -1,10 +1,10 @@
-import Button from "@/ui/components/Button";
 import BaseTemplate from "@/ui/templates/BaseTemplate";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigate } from "@/ui/utils/navigation";
+import { Button } from "native-base";
 import { View, Text } from "react-native";
 
 const Home = () => {
-  const navigation = useNavigation();
+  const navigate = useNavigate();
 
   return (
     <BaseTemplate>
@@ -13,10 +13,7 @@ const Home = () => {
         <Text className="text-regular font-medium">
           Bem vindo ao Blog do curso
         </Text>
-        <Button
-          label="Faça login"
-          onPress={() => navigation.navigate("login")}
-        />
+        <Button onPress={() => navigate.to("login")}>Login</Button>
       </View>
     </BaseTemplate>
   );

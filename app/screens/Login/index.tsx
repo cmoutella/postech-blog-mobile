@@ -19,11 +19,13 @@ export default function Login() {
         <View>
           <Input
             label="Usuário"
+            name="username"
             className="border border-1 border-teal-700 bg-teal-100"
             value={password}
           />
           <Input
             label="Senha"
+            name="username"
             className="border border-1 border-teal-700 bg-teal-100"
             value={username}
           />

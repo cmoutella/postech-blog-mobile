@@ -21,13 +21,16 @@ export default function Login() {
             label="Usuário"
             name="username"
             className="border border-1 border-teal-700 bg-teal-100"
-            value={password}
+            value={username}
+            onChangeText={(v) => setUsername(v)}
           />
           <Input
             label="Senha"
             name="username"
+            type="password"
             className="border border-1 border-teal-700 bg-teal-100"
-            value={username}
+            value={password}
+            onChangeText={(v) => setPassword(v)}
           />
         </View>
 

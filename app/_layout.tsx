@@ -5,7 +5,7 @@ import "../constants/global.css";
 
 export default function RootLayout() {
   return (
-    <NativeBaseProvider theme={customTheme}>
+    <NativeBaseProvider theme={customTheme} isSSR={false}>
       <Routes />
     </NativeBaseProvider>
   );

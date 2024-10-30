@@ -38,7 +38,7 @@ const Input = ({
   };
 
   return (
-    <Box>
+    <Box className="w-full">
       <FormControl className="flex flex-col items-start w-full bg-transparent">
         {label && <FormControl.Label>{label}</FormControl.Label>}
         <BaseInput

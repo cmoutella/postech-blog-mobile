@@ -1,4 +1,4 @@
-import Header from "@/ui/components/Header";
+import Header from "@/components/Header";
 import { Box } from "native-base";
 import { ReactNode } from "react";
 interface BaseTemplateProps {

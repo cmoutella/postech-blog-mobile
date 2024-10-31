@@ -1,4 +1,4 @@
-import Input from "@/ui/components/Base/Input";
+import Input from "@/ui/components/Input";
 import BaseTemplate from "@/ui/templates/BaseTemplate";
 import { useNavigate } from "@/ui/utils/navigation";
 import { Button } from "native-base";

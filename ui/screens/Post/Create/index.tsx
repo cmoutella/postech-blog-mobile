@@ -1,63 +1,50 @@
-import { Box, Button, Input, Spinner } from "native-base";
+import { Box, Button, Input, Icon } from "native-base";
 import BaseTemplate from "@/ui/templates/BaseTemplate";
 import { useEffect, useState } from "react";
 import { PostInterface } from "@/types";
 import Text from "@/components/base/Text";
 import updatePost from "@/api/updatePost";
 import getPublicOnePost from "@/api/getPost";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { RootStackParamList } from "@/routes/app.routes";
 import { useNavigate } from "@/ui/navigation";
+import createPost from "@/api/createPost";
+import { useSessionContext } from "@/ui/providers/authProvider";
 
 interface PostScreenProps {
   postId: string;
 }
 
 export function EditPostScreen({ postId }: PostScreenProps) {
-  const [postTitle, setPostTitle] = useState<string | undefined>(undefined);
-  const [postContent, setPostContent] = useState<string | undefined>(undefined);
-  const [keyWords, setKeywords] = useState<string | undefined>(undefined);
+  const [postTitle, setPostTitle] = useState<string>("");
+  const [postContent, setPostContent] = useState<string>("");
+  const [keyWords, setKeywords] = useState<string>("");
 
-  // Defina corretamente o tipo de navegação
   const navigate = useNavigate();
+  const { user } = useSessionContext();
+
+  if (!user || !user.id) {
+    navigate.to("login");
+    return <></>;
+  }
 
   // Requisições
-  const requestPosts = getPublicOnePost(postId);
-  const requestUpdatePosts = updatePost(postId, {
+  const requestUpdatePosts = createPost({
     title: postTitle,
     text: postContent,
     keyWords: keyWords?.split(",").map((word) => word.trim()),
+    teacherId: user.id,
   });
 
-  // Função para buscar os dados do post
-  const getPostContent = async () => {
+  // Função para enviar a criação
+  const submit = async () => {
     try {
-      const postData: PostInterface = await requestPosts.submit();
-
-      setPostTitle(postData.title);
-      setPostContent(postData.text);
-      setKeywords(postData.keyWords.join(", "));
-    } catch (error) {
-      console.error("Erro ao buscar post:", error);
-    }
-  };
-
-  // Função para enviar a atualização
-  const submitUpdate = async () => {
-    try {
-      const updatedPost = await requestUpdatePosts.submit();
-
-      // Após salvar, navegue para a tela do post editado
+      await requestUpdatePosts.submit();
       navigate.to("post", { postId });
     } catch (error) {
       console.error("Erro ao atualizar post:", error);
     }
   };
-
-  // Busca os dados do post ao carregar o componente
-  useEffect(() => {
-    if (postTitle === undefined && postContent === undefined) {
-      getPostContent();
-    }
-  }, []);
 
   return (
     <BaseTemplate>
@@ -101,17 +88,17 @@ export function EditPostScreen({ postId }: PostScreenProps) {
           className="mb-6"
           colorScheme="blue"
         >
-          Voltar
+          Cancelar alterações e voltar
         </Button>
 
         {/* Botão para salvar */}
         <Button
-          onPress={submitUpdate}
+          onPress={submit}
           isLoading={requestUpdatePosts.loading}
           isDisabled={requestUpdatePosts.loading || !postTitle || !postContent}
           className="mt-4"
         >
-          {requestUpdatePosts.loading ? <Spinner /> : "Salvar alterações"}
+          Salvar alterações
         </Button>
       </Box>
     </BaseTemplate>

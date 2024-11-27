@@ -7,6 +7,7 @@ import BaseTemplate from "@/ui/templates/BaseTemplate";
 import { Box, Button, Spinner } from "native-base";
 import Text from "@/components/base/Text";
 import getPublicOnePost from "@/api/getPost";
+import deletePost from "@/api/deletePost";
 
 interface PostScreenProps {
   postId: string;
@@ -18,6 +19,7 @@ export function PostScreen({ postId }: PostScreenProps) {
   const { isLogged } = useSessionContext();
 
   const requestPosts = getPublicOnePost(postId);
+  const postDelete = deletePost(postId);
 
   const getPosts = async () => {
     const postData: PostInterface = await requestPosts.submit();
@@ -68,13 +70,16 @@ export function PostScreen({ postId }: PostScreenProps) {
               Voltar
             </Button>
 
-            {isLogged && (
-              <Button
-                onPress={() => navigate.to("postUpdate", { postId: post.id })}
-              >
-                Editar
-              </Button>
-            )}
+            <Box className="flex flex-row gap-2">
+              {isLogged && (
+                <Button
+                  onPress={() => navigate.to("postUpdate", { postId: post.id })}
+                >
+                  Editar
+                </Button>
+              )}
+              {isLogged && <Button onPress={postDelete.submit}>Deletar</Button>}
+            </Box>
           </Box>
         )}
       </Box>

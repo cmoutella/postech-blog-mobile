@@ -1,12 +1,7 @@
-import { Box, Button, Input, Icon } from "native-base";
+import { useState } from "react";
+import { Box, Button, Input } from "native-base";
 import BaseTemplate from "@/ui/templates/BaseTemplate";
-import { useEffect, useState } from "react";
-import { PostInterface } from "@/types";
 import Text from "@/components/base/Text";
-import updatePost from "@/api/updatePost";
-import getPublicOnePost from "@/api/getPost";
-import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { RootStackParamList } from "@/routes/app.routes";
 import { useNavigate } from "@/ui/navigation";
 import createPost from "@/api/createPost";
 import { useSessionContext } from "@/ui/providers/authProvider";

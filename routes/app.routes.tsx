@@ -4,6 +4,7 @@ import Home from "@/app/screens/Home";
 import Post from "@/app/screens/Post";
 import Login from "@/app/screens/Login";
 import Admin from "@/app/screens/AdminView";
+import EditPost from "@/app/screens/PostEdit";
 import ListStudentView from "@/app/screens/StudentsList";
 import CreateStudentView from "@/app/screens/StudentCreate";
 import ListTeacherView from "@/app/screens/TeachersList";
@@ -18,6 +19,7 @@ export type RootStackParamList = {
   studentList: undefined;
   createStudent: undefined;
   post: { postId: string };
+  postUpdate: { postId: string };
 };
 
 export function AppRoutes() {
@@ -27,8 +29,8 @@ export function AppRoutes() {
   return (
     <Navigator initialRouteName="home" screenOptions={{ headerShown: false }}>
       <Screen name="home" component={Home} />
-      <Screen name="login" component={Login} />
       <Screen name="admin" component={Admin} />
+      <Screen name="login" component={Login} />
 
       {/* TEACHER VIEWS */}
       <Screen name="teacherList" component={ListTeacherView} />
@@ -40,6 +42,7 @@ export function AppRoutes() {
 
       {/* POST VIEWS */}
       <Screen name="post" component={Post} />
+      <Screen name="postUpdate" component={EditPost} />
     </Navigator>
   );
 }
